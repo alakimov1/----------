@@ -1,8 +1,8 @@
 <p>Ламинат</p>
 <div>Длина</div>
-<input type="number" min="0" [(ngModel)]="length" (ngModelChange)="laminateChanged()"/>
+<input type="number" min="1" [(ngModel)]="length" (ngModelChange)="laminateChanged()"/>
 <div>Ширина</div>
-<input type="number" min="0" [(ngModel)]="width" (ngModelChange)="laminateChanged()"/>
+<input type="number" min="1" [(ngModel)]="width" (ngModelChange)="laminateChanged()"/>
 <div>Цвета</div>
 <div *ngFor="let color of colors; let i = index">
     <input type="color" [(ngModel)]="colors[i]" (ngModelChange)="laminateChanged()"/>

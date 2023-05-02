@@ -1,1 +1,15 @@
 <h1>Визуализация</h1>
+<div>
+    <form>
+        <div id="colors">
+            <div 
+                *ngFor="let color of colors; let i = index" 
+                id="color" 
+                [style.height]="i==currentColor ? '30px':'20px' "
+                [ngStyle]="{'background-color': color}" 
+                (click)="colorChanged(i)"
+            ></div>
+        </div>
+    </form>
+</div>
+<!--[ngStyle]="{'width': room.width,'height': room.height}"-->

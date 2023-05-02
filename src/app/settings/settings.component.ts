@@ -8,10 +8,10 @@ import { Component,Output,EventEmitter } from '@angular/core';
 
 export class SettingsComponent { 
 
-    roomWidth:number=0;
-    roomLength:number=0;
-    laminateWidth:number=0;
-    laminateLength:number=0;
+    roomWidth:number=1;
+    roomLength:number=1;
+    laminateWidth:number=1;
+    laminateLength:number=1;
     laminateColors:string[] = ["#000000"];
 
     @Output() outputSettings = new EventEmitter();
@@ -20,6 +20,7 @@ export class SettingsComponent {
     {
         this.roomLength = size.length;
         this.roomWidth = size.width;
+        this.settingsChanged();
     }
 
     getLaminateSettings(settings)
@@ -27,19 +28,27 @@ export class SettingsComponent {
         this.laminateLength = settings.length;
         this.laminateWidth = settings.width;
         this.laminateColors=settings.colors;
+        this.settingsChanged();
     }
 
     settingsChanged()
     {
-        const settings = 
+        if (this.roomLength>0
+            && this.roomWidth>0
+            && this.laminateLength>0
+            && this.laminateWidth>0
+            && this.laminateColors.length>0)
         {
-            roomLength:this.roomLength, 
-            roomWidth:this.roomWidth,
-            laminateLength:this.laminateLength,
-            laminateWidth:this.laminateWidth,
-            laminateColors:this.laminateColors
+            const settings = 
+            {
+                roomLength:this.roomLength, 
+                roomWidth:this.roomWidth,
+                laminateLength:this.laminateLength,
+                laminateWidth:this.laminateWidth,
+                laminateColors:this.laminateColors
+            }
+            this.outputSettings.emit(settings);
         }
-        this.outputSettings.emit(settings);
     }
 
 }

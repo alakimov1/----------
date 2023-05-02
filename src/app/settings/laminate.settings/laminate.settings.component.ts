@@ -10,8 +10,8 @@ const BLACK = "#000000";
 
 export class LaminateSettingsComponent { 
 
-    length:number=0;
-    width:number=0;
+    length:number=1;
+    width:number=1;
     colors: string[]=[BLACK];
     
     @Output() outputLaminateSettings = new EventEmitter();
@@ -21,7 +21,7 @@ export class LaminateSettingsComponent {
         const laminateSettings = { 
             length: this.length, 
             width: this.width,
-            colors:this.colors 
+            colors: this.colors 
         }
         this.outputLaminateSettings.emit(laminateSettings);
     }

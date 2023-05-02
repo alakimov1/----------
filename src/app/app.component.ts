@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter,ViewChild } from '@angular/core';
+import { VisualizationComponent } from './visualization/visualization.component';
      
 @Component({
     selector: 'my-app',
@@ -8,8 +9,10 @@ import { Component, Output, EventEmitter } from '@angular/core';
 
 export class AppComponent { 
     
+    @ViewChild(VisualizationComponent) visualization:VisualizationComponent;
+
     settingsChanged(settings)
     {
-        
+        this.visualization.startVisualization(settings);
     }
 }

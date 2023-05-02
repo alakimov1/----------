@@ -9,8 +9,8 @@ import { Component, Output, EventEmitter } from '@angular/core';
 
 export class RoomSettingsComponent { 
 
-    length:number=0;
-    width:number=0;
+    length:number=1;
+    width:number=1;
     
     @Output() outputSize = new EventEmitter();
 
