@@ -1,0 +1,18 @@
+#app {
+    display: flex;
+}
+
+#settings{
+    flex:none;
+    margin: 10px;
+}
+
+#visualization{
+    flex: auto;
+    margin: 10px;
+}
+
+#result{
+    flex: none;
+    margin: 10px;
+}
