@@ -6,9 +6,25 @@
                 *ngFor="let color of colors; let i = index" 
                 id="color" 
                 [style.height]="i==currentColor ? '30px':'20px' "
-                [ngStyle]="{'background-color': color}" 
+                [style.backgroundColor]="color" 
                 (click)="colorChanged(i)"
             ></div>
         </div>
     </form>
+</div>
+<div id="room" [style.aspect-ratio]="scale">
+    <div
+        *ngFor="let row of laminateRows; let rowIndex = index"
+        id="laminate-rows"
+        [style.height] = "row.height+'%'"
+        >
+            <div
+            *ngFor="let laminate of row.laminates; let i = index"
+            id="laminate"            
+            [style.width] = "laminate.width+'%'"
+            [style.height] = "'100%'"
+            [style.backgroundColor]="laminate.color"
+            (click)="laminate.color = colors[currentColor].slice()"
+            ></div>
+    </div>
 </div>
