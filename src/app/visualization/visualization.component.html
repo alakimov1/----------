@@ -5,9 +5,9 @@
             <div 
                 *ngFor="let color of colors; let i = index" 
                 id="color" 
-                [style.height]="i==currentColor ? '30px':'20px' "
+                [style.height]="i==currentColor ? '40px':'20px' "
                 [style.backgroundColor]="color" 
-                (click)="colorChanged(i)"
+                (click)="colorChange(i)"
             ></div>
         </div>
     </form>
@@ -16,15 +16,15 @@
     <div
         *ngFor="let row of laminateRows; let rowIndex = index"
         id="laminate-rows"
-        [style.height] = "row.height+'%'"
+        [style.height] = "row.width*100/this.room.height+'%'"
         >
             <div
             *ngFor="let laminate of row.laminates; let i = index"
             id="laminate"            
-            [style.width] = "laminate.width+'%'"
+            [style.width] = "laminate.length*100/this.room.width+'%'"
             [style.height] = "'100%'"
             [style.backgroundColor]="laminate.color"
-            (click)="laminate.color = colors[currentColor].slice()"
+            (click)="laminateColorChange(laminate)"
             ></div>
     </div>
 </div>

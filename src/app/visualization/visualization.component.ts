@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
     
-export class LaminateCell{
+class LaminateCell{
     constructor(
         public color:string,
-        public width:number   
+        public length:number   
     ){}
 }
 
-export class LaminateRow{
+class LaminateRow{
     constructor(
-        public height:number,
+        public width:number,
         public laminates:LaminateCell[]
     ){}
 }
@@ -21,6 +21,8 @@ export class LaminateRow{
 })
 
 export class VisualizationComponent { 
+
+    @Output() outputVisualization = new EventEmitter();
 
     colors:string[];
     scale:number;
@@ -58,8 +60,8 @@ export class VisualizationComponent {
 
         while (height>0)
         {
-            let rowHeight = height>settings.laminateLength
-                ?settings.laminateLength
+            let rowHeight = height>settings.laminateWidth
+                ?settings.laminateWidth
                 :height;
             height -=rowHeight;
             
@@ -70,8 +72,8 @@ export class VisualizationComponent {
 
             while(width>0)
             {
-                let laminateWidth = width>settings.laminateWidth
-                    ?settings.laminateWidth
+                let laminateWidth = width>settings.laminateLength
+                    ?settings.laminateLength
                     :width;
 
                 if(firstLaminate
@@ -84,22 +86,36 @@ export class VisualizationComponent {
                 width -= laminateWidth;
                 laminatesRow.push({
                     color:this.colors[this.currentColor].slice(),
-                    width:laminateWidth*100/this.room.width
+                    length:laminateWidth
                 });
             }
 
             needShift = !needShift;
 
             this.laminateRows.push({
-                height:rowHeight*100/this.room.height,
+                width:rowHeight,
                 laminates:laminatesRow
             });
         }
+
+        this.visualizationChanged();
     }
 
-    colorChanged(color)
+    colorChange(color)
     {
         this.currentColor = color;
+    }
+
+    laminateColorChange(laminate)
+    {
+        laminate.color = this.colors[this.currentColor].slice();
+        this.visualizationChanged();
+    }
+
+    visualizationChanged()
+    {
+        if (this.laminateRows)
+            this.outputVisualization.emit(this.laminateRows);
     }
 
 }

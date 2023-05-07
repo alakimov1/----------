@@ -1,0 +1,9 @@
+#laminate{
+    display: flex;
+}
+
+#color{
+    border-style: groove;
+    width: 20px;
+    height: 20px;
+}

@@ -1,6 +1,8 @@
 
 #color{
     width: 20px;
+    border-width:3px;
+    border-style: groove;
 }
 
 #colors {
@@ -22,9 +24,8 @@
 }
 
 #laminate{
-    border-width: 1px; 
+    border-width: 3px; 
     border-color: black; 
-    border-style: solid;
+    border-style: groove;
     width: 100%;
 }
-

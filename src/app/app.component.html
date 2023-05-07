@@ -4,7 +4,8 @@
         (outputSettings)="settingsChanged($event)"></settings-comp>
     </div>
     <div id="visualization">
-        <visualization-comp></visualization-comp>
+        <visualization-comp
+        (outputVisualization) = "visualizationChanged($event)"></visualization-comp>
     </div>
     <div id="result">
         <result-comp></result-comp>
