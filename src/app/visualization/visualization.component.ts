@@ -1,5 +1,7 @@
 import { Component, Output, EventEmitter } from '@angular/core';
     
+const MAX_LAMINATES=30000;
+
 class LaminateCell{
     constructor(
         public color:string,
@@ -32,15 +34,18 @@ export class VisualizationComponent {
     };
 
     laminateRows:LaminateRow[]=[];
-
+    tooManyLaminates:boolean = false;
     currentColor:number=0;
+    waiting:boolean = false;
 
     startVisualization(settings)
     {
+        this.waiting = true;
         this.colors=settings.laminateColors;
 
         if (!this.colors)
         {
+            this.waiting = false;
             return;
         }
 
@@ -57,6 +62,13 @@ export class VisualizationComponent {
         let height = this.room.height;
         this.laminateRows=[];
         let needShift = false;
+        this.tooManyLaminates = this.room.height/settings.laminateLength*this.room.width/settings.laminateWidth>MAX_LAMINATES;
+
+        if (this.tooManyLaminates)
+        {
+            this.waiting = false;
+            return;                
+        }
 
         while (height>0)
         {
@@ -99,6 +111,7 @@ export class VisualizationComponent {
         }
 
         this.visualizationChanged();
+        this.waiting = false;
     }
 
     colorChange(color)

@@ -10,3 +10,18 @@
         {{laminate.length}}x{{laminate.width}}-{{laminate.qty}} шт.
     </div>
 </div>
+<p>Список заготовок</p>
+<div
+    id="laminate"
+    *ngFor="let laminate of laminateWorkPieces">
+    <div id="color"
+    [style.backgroundColor]="laminate.color" >
+</div>
+<div>
+    {{laminate.width}}x
+</div>
+<div *ngFor="let length of laminate.lengths">
+    {{length}} 
+</div>
+
+</div>

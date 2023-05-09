@@ -12,7 +12,7 @@
         </div>
     </form>
 </div>
-<div id="room" [style.aspect-ratio]="scale">
+<div *ngIf="!tooManyLaminates" id="room" [style.aspect-ratio]="scale">
     <div
         *ngFor="let row of laminateRows; let rowIndex = index"
         id="laminate-rows"
@@ -28,3 +28,8 @@
             ></div>
     </div>
 </div>
+<div *ngIf="tooManyLaminates">
+    <p>Слишком много плиток - измените настройки</p>
+</div>
+<div *ngIf="waiting" class="loading | async">Loading&#8230;</div>
+

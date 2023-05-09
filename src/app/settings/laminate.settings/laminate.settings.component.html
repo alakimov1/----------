@@ -4,8 +4,8 @@
 <div>Ширина</div>
 <input type="number" min="1" [(ngModel)]="width" (ngModelChange)="laminateChanged()"/>
 <div>Цвета</div>
-<div *ngFor="let color of colors; let i = index">
-    <input type="color" [(ngModel)]="colors[i]" (ngModelChange)="laminateChanged()"/>
+<div *ngFor="let color of colors; let i = index;">
+    <input type="color" (change)="colorChange(i,$event);"  [value]="colors[i]" />
 </div>
 <div>
     <button (click)="addColor()">+</button>

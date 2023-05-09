@@ -13,14 +13,20 @@ export class AppComponent {
     @ViewChild(VisualizationComponent) visualization:VisualizationComponent;
     @ViewChild(ResultComponent) result:ResultComponent;
 
+    laminateSettings:object;
+    
     settingsChanged(settings)
     {
+        this.laminateSettings={
+            width:settings.laminateWidth,
+            length:settings.laminateLength
+        }
         this.visualization.startVisualization(settings);
     }
 
     visualizationChanged(laminateRows)
     {
-        this.result.calculateResult(laminateRows);
+        this.result.calculateResult(laminateRows,this.laminateSettings);
     }
 
 }

@@ -26,6 +26,12 @@ export class LaminateSettingsComponent {
         this.outputLaminateSettings.emit(laminateSettings);
     }
 
+    colorChange(i,event)
+    {
+        this.colors[i]=(event.target as HTMLInputElement).value;
+        this.laminateChanged();
+    }
+
     addColor()
     {
         this.colors.push(BLACK);
