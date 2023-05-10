@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-class laminateNom{
+class LaminateNom{
     constructor(
         public color:string,
         public length:number,
@@ -9,11 +9,17 @@ class laminateNom{
     ){}
 }
 
-class laminateCutting{
+class LaminateSizes{
+    constructor(
+    public length:number,
+    public width:number
+    ){}
+}
+
+class LaminateCutting{
     constructor(
         public color:string,
-        public lengths:number[],
-        public width:number,
+        public sizes:LaminateSizes[],
     ){}
 }
 
@@ -25,29 +31,52 @@ class laminateCutting{
 
 export class ResultComponent { 
 
-    laminateNoms:laminateNom[];
-    laminateWorkPieces:laminateCutting[];
+    laminateNoms:LaminateNom[];
+    laminateWorkPieces:LaminateCutting[];
     laminateWidth:number;
     laminateLength:number;
 
+    canAddToWorkPiece(laminateNom:LaminateNom)
+    {
+        for(let piece of this.laminateWorkPieces)
+        {
+            if (laminateNom.color==piece.color &&
+                (this.laminateLength - piece.sizes.reduce((sum, current) => sum + current.length, 0))>=laminateNom.length)
+                {
+                    return piece;
+                }
+        }
+        return null;
+    }
+
     calculateCutting()
     {
+        const qtyRemain=[];
         this.laminateWorkPieces=[];
-        this.laminateNoms.forEach(nom => {
-            for(let i =0;i<nom.qty;i++)
+        const laminateNomsRemain=this.laminateNoms.sort((a,b)=>(b.length-a.length));
+        laminateNomsRemain.forEach(nom=>qtyRemain.push(nom.qty));
+        while(qtyRemain.some(qty=>qty>0)){
+            const laminateNomRemain = laminateNomsRemain.filter(nom=> qtyRemain[laminateNomsRemain.indexOf(nom)]>0)[0];
+            let piece = this.canAddToWorkPiece(laminateNomRemain);
+            
+            if (piece==null)
             {
                 this.laminateWorkPieces.push({
-                    color:nom.color,
-                    lengths:[nom.length],
-                    width:nom.width
+                    color:laminateNomRemain.color,
+                    sizes:[{
+                        length:laminateNomRemain.length,
+                        width:laminateNomRemain.width
+                    }]
                 });
             }
-        });  
-        this.laminateWorkPieces.sort((a,b)=>b.lengths.reduce((sum, current) => sum + current, 0)-a.lengths.reduce((sum, current) => sum + current, 0));
-        for(let i=0;i<this.laminateWorkPieces.length-1;i++)
-        {
-            let maxLength = this.laminateWorkPieces[i].lengths.reduce((sum, current) => sum + current, 0)-this.laminateLength;
-            
+            else
+            {
+                piece.sizes.push({
+                    length:laminateNomRemain.length,
+                    width:laminateNomRemain.width
+                })
+            }
+            qtyRemain[laminateNomsRemain.indexOf(laminateNomRemain)]--;
         }
     }
 

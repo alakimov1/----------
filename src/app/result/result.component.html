@@ -16,12 +16,8 @@
     *ngFor="let laminate of laminateWorkPieces">
     <div id="color"
     [style.backgroundColor]="laminate.color" >
-</div>
-<div>
-    {{laminate.width}}x
-</div>
-<div *ngFor="let length of laminate.lengths">
-    {{length}} 
-</div>
-
+    </div>
+    <div id="laminate" *ngFor="let size of laminate.sizes; let i = index">
+        <div>{{size.length}}x{{size.width}}</div><div *ngIf="(laminate.sizes.length-1)>i">+</div>
+    </div>
 </div>
